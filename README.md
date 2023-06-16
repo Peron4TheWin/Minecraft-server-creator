@@ -1,5 +1,6 @@
 # Minecraft-server-creator
-Crea servidores de minecraft de forma automatica, usando determinadas versiones de PaperMC (Limitadas, ya que no las quiero poner manualmente y no lo pude automatizar)
+Crea servidores de minecraft de forma automatica
+Usa PaperMC automaticamente si es posible, ya que este no tiene ninguna desventaja frente al server vanilla
 Y vanilla con soporte para siempre, siempre y cuando
 https://mcversions.net/
 se mantenga en pie, ya que de ahi se sacan los server.jar.
