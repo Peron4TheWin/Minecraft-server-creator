@@ -8,16 +8,9 @@ import threading
 import tkinter as tk
 
 def GetJARlink(version:str):
-    url = 'https://mcversions.net/download/'+version
-    response = requests.get(url)
-    html = response.text
-    soup = BeautifulSoup(html, 'html.parser')
-    links = soup.find_all('a')
-    for link in links:
-        href = link.get('href')
-        if href:
-            if href.endswith("server.jar"):
-                return(href)
+    url = 'https://serverjars.com/api/fetchJar/vanilla/vanilla/'+version
+    return url
+
 
 def GetPaperLink(version:str):
     a=requests.get(f"https://api.papermc.io/v2/projects/paper/versions/{version}/builds")
@@ -129,13 +122,19 @@ if not folder_exists("j8") or not folder_exists("j17"):
     extract_zip("java.zip")
     os.remove("java.zip")
 
-
-
+a=0
+import sys
 while True:
-    version=input("Ingrese una version a usar, por ejemplo 1.12.2\n:")
+    try:
+        if a==0:
+            version=sys.argv[1]
+        else:
+            raise Exception()
+    except:
+        version=input("Ingrese una version a usar, por ejemplo 1.12.2\n:")
     try:
         #si la version no existe reintenta
-        if requests.get('https://mcversions.net/download/'+version).status_code !=200:
+        if requests.get('https://serverjars.com/api/fetchJar/vanilla/vanilla/'+version).status_code !=200:
             raise Exception("version no compatible")
         java=(javadic.get(get_java_version(version))) #obtiene el java (8 o 17)
         jarlink=GetJARlink(version) #consigue el link del server.jar
@@ -155,6 +154,7 @@ while True:
     except Exception as e:
         os.system("cls")
         print("La version que ingresaste no es correcta, reintenta")
+        a=2
 
 def close_window(root):
     root.destroy()
@@ -192,5 +192,6 @@ os.system("cls")
 while True:
     subprocess.call(command,shell=True)
     subprocess.call("cls",shell=True)
-    if input("Deseas reiniciar el server? y/n")=="n":
-        break
+    
+    # if input("Deseas reiniciar el server? y/n")=="n":
+    #     break
